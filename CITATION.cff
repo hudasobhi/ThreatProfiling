@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use ShadowDetectAI in your research, please cite the following paper."
+title: "Explainable Deep Learning for Insider Threat Profiling Using Log-Derived Behavioral Proxies and Temporal Graph Networks"
+authors:
+  - family-names: "Author"
+    given-names: "Corresponding"
+journal: "Computers, Materials and Continua"
+year: 2026
+url: "https://kilthub.cmu.edu/articles/dataset/Insider_Threat_Test_Dataset/12841247"
+license: MIT

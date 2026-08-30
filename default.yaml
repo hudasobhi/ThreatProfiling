@@ -1,0 +1,37 @@
+# ShadowDetectAI hyperparameters — matches Table 5 in the manuscript
+
+model:
+  embedding_dim: 128          # d: fused behavioral embedding dimensionality
+  attention_heads: 4          # K: number of multi-head attention heads
+  gru_hidden_dim: 128         # GRU hidden state for memory update (Eq. 18)
+  mlp_hidden_dim: 256         # ϕ_msg feedforward hidden units (Eq. 17)
+  dropout: 0.1
+
+encoder:
+  keystroke:
+    feature_dim: 8            # [μ_d, σ_d, P50_d, P90_d, μ_l, σ_l, P50_l, P90_l]
+  mouse:
+    feature_dim: 6            # [H_v, click_interval_mean, click_interval_std, iei_mean, iei_std, iei_p90]
+  application:
+    embed_dim: 64             # categorical embedding dimension per app token
+    gru_hidden_dim: 64        # single-layer GRU aggregation output dim
+
+training:
+  optimizer: adam
+  learning_rate: 0.0003
+  batch_size: 256             # users per window
+  epochs: 60
+  beta: 0.01                  # weight for L_smooth (Eq. 36)
+  gamma: 0.0001               # weight for L2 regularization (Eq. 36)
+  seeds: [42, 123, 256, 512, 1024, 999, 777, 333, 111, 888]
+
+shap:
+  algorithm: kernelshap
+  background_samples: 100     # fixed benign training windows (Table 3)
+  coalition_samples: 512      # per flagged user (Table 3)
+  top_k: 3                    # top-k ranked contributors shown to analyst
+
+calibration:
+  method: platt               # Platt scaling (Eq. 31)
+  psi_bins: 10                # B bins for PSI computation (Eq. 32)
+  drift_lambda: 0.05          # λ: drift adaptation coefficient (Eq. 33)

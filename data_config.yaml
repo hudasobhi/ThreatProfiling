@@ -1,0 +1,45 @@
+# Dataset paths and partition definitions — must match manuscript Section 6.1
+
+dataset:
+  name: CERT_r6.2
+  source_url: "https://kilthub.cmu.edu/articles/dataset/Insider_Threat_Test_Dataset/12841247"
+  raw_dir: "data/raw/"
+  processed_dir: "data/processed/"
+
+  # CERT r6.2 activity log files
+  log_files:
+    logon: "logon.csv"
+    device: "device.csv"
+    email: "email.csv"
+    file: "file.csv"
+    http: "http.csv"
+    psychometric: "psychometric.csv"
+
+  # Total simulation period: 18 months
+  # Training:   months  1-13  (72.2% of observation period)
+  # Validation: months 14-15  (11.1%)
+  # Test:       months 16-18  (16.7%)
+  # Partitions are temporally contiguous with no gap month.
+  splits:
+    train_months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    val_months:   [14, 15]
+    test_months:  [16, 17, 18]
+
+  # Sliding window parameters (Algorithm 1)
+  window_hours: 24            # Δ: window length in hours
+  window_stride_hours: 24     # non-overlapping windows
+
+  # Malicious insider identities per partition (CERT r6.2 documented)
+  malicious_identities:
+    train: 3                  # 42 malicious windows
+    val:   1                  # 9 malicious windows
+    test:  1                  # 9 malicious windows
+
+  # TGN memory state reset at each partition boundary (cold-start)
+  cold_start_memory: true
+
+  # Dynamic graph node set: human employees + resource nodes
+  total_employees: 4000       # matches CERT r6.2 corpus documentation
+  # Resource nodes (shared drives, printers, servers) are added during graph construction.
+  # Post-preprocessing node counts including resource nodes:
+  #   train: 3200, val: 690, test: 690 (Table 4)

@@ -1,0 +1,57 @@
+# Baseline hyperparameter configurations — matches Table 6 in the manuscript
+# All baselines use the same dataset partition and preprocessing pipeline as ShadowDetectAI.
+# Configurations were selected by exhaustive grid search on validation AUC-ROC.
+
+graphch:
+  learning_rate: 0.0003
+  gnn_layers: 2
+  hidden_dim: 128
+  optimizer: adam
+  epochs: 60
+  seeds: [42, 123, 256, 512, 1024, 999, 777, 333, 111, 888]
+  # Grid searched: LR in {0.0001, 0.0003, 0.001}, Layers in {2, 3}, Dim in {64, 128, 256}
+
+lan:
+  learning_rate: 0.0003
+  attention_heads: 4
+  window_hours: 24
+  optimizer: adam
+  epochs: 60
+  seeds: [42, 123, 256, 512, 1024, 999, 777, 333, 111, 888]
+  # Grid searched: LR in {0.0001, 0.0003, 0.001}, Heads in {2, 4, 8}, Window in {12h, 24h, 48h}
+
+double_layer:
+  learning_rate: 0.0001
+  hidden_dim: 128
+  dropout: 0.3
+  optimizer: adam
+  epochs: 60
+  seeds: [42, 123, 256, 512, 1024, 999, 777, 333, 111, 888]
+  # Grid searched: LR in {0.0001, 0.0003, 0.001}, Dim in {64, 128}, Dropout in {0.1, 0.3, 0.5}
+
+vggm:
+  learning_rate: 0.001
+  gmm_components: 4
+  latent_dim: 64
+  optimizer: adam
+  epochs: 60
+  seeds: [42, 123, 256, 512, 1024, 999, 777, 333, 111, 888]
+  # Grid searched: LR in {0.0001, 0.001}, Components in {2, 4, 8}, Latent dim in {32, 64, 128}
+
+exai:
+  learning_rate: 0.001
+  mlp_layers: 3
+  hidden_units: 128
+  optimizer: adam
+  epochs: 60
+  seeds: [42, 123, 256, 512, 1024, 999, 777, 333, 111, 888]
+  # Grid searched: LR in {0.0001, 0.001}, Layers in {2, 3, 4}, Units in {64, 128, 256}
+
+gaspar:
+  learning_rate: 0.0003
+  mlp_layers: 2
+  hidden_units: 64
+  optimizer: adam
+  epochs: 60
+  seeds: [42, 123, 256, 512, 1024, 999, 777, 333, 111, 888]
+  # Grid searched: LR in {0.0001, 0.001}, Layers in {2, 3, 4}, Units in {64, 128, 256}
